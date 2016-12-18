@@ -1,0 +1,112 @@
+a:hover {
+    text-decoration: none;
+}
+a {
+    color: #333;
+}
+
+a:hover {
+    color: #337ab7;
+}
+.top {
+    text-align: center;
+}
+.list {
+    max-width: 600px;
+    font-family:sans-serif;
+    margin:0 auto;
+    padding:20px 0 0;
+}
+.list > li,
+.list form li {
+    display:block;
+    background-color: #eee;
+    padding:10px;
+    box-shadow: inset 0 1px 0 #fff;
+    margin-bottom: 2px;
+}
+.item {
+    cursor: pointer;
+}
+h3 {
+    font-size: 16px;
+    margin:0 0 0.3rem;
+    font-weight: normal;
+    font-weight:bold;
+}
+p {
+    margin:0;
+}
+input {
+    border:solid 1px #ccc;
+    border-radius: 5px;
+    padding:7px 14px;
+    margin-bottom:10px
+}
+input:focus {
+    outline:none;
+    border-color:#aaa;
+}
+.sort {
+    position: relative;
+    padding:8px 30px; /*vert, hori*/
+    border-radius: 6px;
+    border:none;
+    display:inline-block;
+    color:#fff;
+    text-decoration: none;
+    background-color: rgb(35, 85, 135); /*Dokk1 colorscheme*/ /*#337AB7;*/
+    border-color: #2E6DA4;
+    height:36px;
+}
+.sort:focus,
+.sort:hover{
+    background-color: #2E6DA4;/*#286090;*/
+    border-color: #2E6DA4;
+    /*border-color: #204D74;
+*/
+}
+.sort:after {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    content:"";
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.sort.asc:after {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #fff;
+    content:"";
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.sort.desc:after {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #fff;
+    content:"";
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.pagination li {
+  display:inline-block;
+  padding:5px;
+}

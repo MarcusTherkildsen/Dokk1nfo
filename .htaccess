@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /
+
+RewriteCond %{HTTP_HOST} ^www\.dokk1nfo\.dk
+RewriteRule (.*) http://dokk1nfo.dk/$1 [R=301,L]
+
+RewriteRule ^(om)$ om.php [NC,L]
+RewriteRule ^(kø)$ koe.php [NC,L]
+RewriteRule ^(besøg)$ besoeg.php [NC,L]
+RewriteRule ^(parkering)$ parkering.php [NC,L]
+RewriteRule ^(404)$ 404.html [NC,L]
+
+</IfModule>
+
+ErrorDocument 404 /404.html

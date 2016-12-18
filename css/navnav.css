@@ -1,0 +1,396 @@
+html { 
+/*
+background: url(http://i0.wp.com/aasarchitecture.com/wp-content/uploads/Dokk1-by-schmidt-hammer-lassen-architects-06.jpg) no-repeat center center fixed; 
+*/
+background: url(/img/bg.jpeg) no-repeat center center fixed; 
+
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+/*Remove background color (bad practice to use !important but this is defined in the bootstrap.css file)
+From http://stackoverflow.com/questions/10768891/how-to-change-the-default-background-color-white-to-something-else-in-twitter-bo#10769515
+*/
+body { background: transparent !important; }
+
+/*white opacity*/
+.c_color{
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 5px;   
+}
+
+.helptext{
+    display: inline-block;
+    background-color:rgba(255,255,255,0.5);
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.wupsi{
+
+    background-color:rgba(255,255,255,0.7);
+    border-radius: 5px;
+    /*
+    Place in middle, 
+    From https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center/
+    */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    padding: 30px;
+}
+
+.middle{
+    text-align: center;
+    left: 0;
+    line-height: 200px;
+    margin: auto;
+    margin-top: -100px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+
+.middle_norm{
+    text-align: center;
+    left: 0;
+    margin: auto;
+    margin-top: -100px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+
+h2 {
+    margin-top: 0px;
+}
+
+/*Remove thin white line between navbar and background image. !important is used to overrule the value defined in bootstrap.css*/
+.navbar-static-top{z-index:1000;border-width:0 0 0px !important}
+
+.navbar-default {
+    color: #FFF;
+    background-color: rgb(35, 85, 135); /*Dokk1 colorscheme*/  /*#337AB7;*/
+    /*border-color: #2E6DA4;*/
+}
+
+.navbar-default .navbar-brand {
+    color: #FFF;
+}
+
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-brand:hover {
+    color: #EEE;
+}
+
+.logo-last {
+    font-size: 65%;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #FFF;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #EEE;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    color: #FFF;
+    background-color: #2E6DA4;/*#286090;/*#2E6DA4;*/
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #FFF;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #FFF;
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: #2E6DA4;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+ol li {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.control-label {
+    font-size: 18px;
+}
+
+.radios {
+    text-align: left;
+    font-size: 15px;
+    padding-top: 5px;
+}
+
+.btn-default.active, .btn-default.focus, .btn-default:active, .btn-default:focus, .btn-default:hover, .open > .dropdown-toggle.btn-default {
+    color: #FFF;
+    background-color: #2E6DA4;
+}
+
+.input-group {
+    margin-top: 20px;
+}
+
+.input-area{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.text-box {
+    width: 265px;
+}
+
+.error {
+    padding-top: 5px;
+    margin: 0;
+    color: #A00;
+}
+
+.permalink {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.box {
+    box-shadow: 0px 0px 10px #999;
+}
+
+.tip {
+    color: #BBB;
+    font-size: 12px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    margin: 0px;
+}
+
+hr {
+    border-width: 4px 0px 0px;
+    border-color: #337AB7 -moz-use-text-color -moz-use-text-color;
+    /*slim-margin color*/
+    border-top: 4px solid black;
+}
+
+.om {
+    margin-top: 40px;
+}
+
+#om {
+    margin-top: 10px;
+}
+
+.play {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.slim-margin {
+    margin-bottom: 10px;
+}
+
+a button {
+    margin-top: 10px;
+}
+
+.bot {
+    margin-bottom: 20px;
+}
+
+/*   Dokk1nfo specific    */
+input[type="text"]
+{
+    font-size:24px;
+    
+}
+
+input[type="submit"]
+{
+    font-family: sans-serif; font-size: 25px;
+    position: absolute;
+    left:33%;
+    top:140%;
+}
+
+.leftcenter {
+    position:absolute;
+    left: 33vh;
+}
+
+#myCanvas{
+    width: 100%;
+    /*
+    display:block; 
+    width:600px; 
+    margin:1em auto; 
+    height:600px; 
+    background:#fff; 
+    border:1px solid #ccc; 
+    */
+}
+
+/* Color when clicked */
+.activeli {
+    background: #325E83;
+}
+
+/* Color on hover */
+
+#chopper{
+    background-color:rgba(255, 255, 255, 0.8);
+    border-radius:5px;
+}
+
+#chopper:hover{
+    background-color:#9fc5e5 !important;
+}
+
+/*   Pop up map   */
+.button
+{
+    width: 150px;
+    padding: 10px;
+    background-color: #FF8C00;
+    box-shadow: -8px 8px 10px 3px rgba(0,0,0,0.2);
+    font-weight:bold;
+    text-decoration:none;
+}
+#cover{
+    position:fixed;
+    top:0;
+    left:0;
+    background:rgba(0,0,0,0.6);
+    z-index:5;
+    width:100%;
+    height:100%;
+    display:none;
+}
+#loginScreen
+{
+    height:380px;
+    width:340px;
+    margin:0 auto;
+    position:relative;
+    z-index:10;
+    display:none;
+    background: url(1.png) no-repeat;
+    border:5px solid #cccccc;
+    border-radius:10px;
+}
+#loginScreen:target, #loginScreen:target + #cover{
+    display:block;
+    opacity:2;
+}
+.cancel
+{
+    display:block;
+    position:absolute;
+    top:3px;
+    right:2px;
+    background:rgb(245,245,245);
+    color:black;
+    height:30px;
+    width:35px;
+    font-size:30px;
+    text-decoration:none;
+    text-align:center;
+    font-weight:bold;
+}
+
+
+/* Pop up */
+/*From */
+* {
+margin: 0;
+padding: 0;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+box-sizing: border-box;
+}
+
+body {
+font-family: "Helvetica Neue","Helvetica", Arial, sans-serif;
+}
+
+.main-content {
+height: 800px;
+width: 1000px;
+margin: 0 auto;
+}
+
+.overlay-bg {
+display: none;
+position: absolute;
+top: 0;
+left: 0;
+height:100%;
+width: 100%;
+cursor: pointer;
+z-index: 1000; /* high z-index */
+background: #000; /* fallback */
+background: rgba(0,0,0,0.75);
+}
+.overlay-content {
+display: none;
+background: #fff;
+padding: 1%;
+width: 50%;
+position: absolute;
+top: 15%;
+left: 50%;
+margin: 0 0 0 -25%; /* add negative left margin for half the width to center the div */
+cursor: default;
+z-index: 10001;
+border-radius: 4px;
+box-shadow: 0 0 5px rgba(0,0,0,0.9);
+}
+
+.close-btn {
+cursor: pointer;
+border: 1px solid #333;
+padding: 2% 5%;
+
+color:#fff;
+text-decoration: none;
+background-color: rgb(35, 85, 135); /*Dokk1 colorscheme*/ /*#337AB7;*/
+border-color: #2E6DA4;
+
+border-radius: 4px;
+box-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+.close-btn:hover {
+background: #2E6DA4;
+}
+
+/* media query for most mobile devices */
+
+/*
+@media only screen and (min-width: 0px) and (max-width: 480px){
+*/
+
+@media only screen and (min-width: 0px) and (max-width: 1024px){
+
+    .overlay-content {
+    width: 96%;
+    margin: 0 2%;
+    left: 0;
+    }
+}
