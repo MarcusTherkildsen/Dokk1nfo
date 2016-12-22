@@ -1,8 +1,10 @@
 <?php
+// Simple stuff such that we at least avoid plaintext logging
+// TODO: Add some actual security here (lol)
 function append_to_file($path, $text)
 {
 	$handle = fopen($path, "a");
-	fwrite($handle, $text);
+	fwrite($handle, str_rot13(base64_encode($text)) . "\n");
 	fclose($handle);
 }
 
@@ -23,13 +25,13 @@ else
 	$year = date("Y");
 
 	if ($_POST['search_or_click'] == "C"){
-		append_to_file("logs/$year.log", $time . ", " . $address . ", " . $_POST['search_or_click'] . ", [" . $_POST['search_string'] . "], " . $_POST['avail_number'] . ", " . $_POST['floor'] . "\n");
+		append_to_file("logs/$year.log", $time . ", " . $address . ", " . $_POST['search_or_click'] . ", [" . $_POST['search_string'] . "], " . $_POST['avail_number'] . ", " . $_POST['floor']);
 	}	
 	elseif ($_POST['search_or_click'] == "S") {
-		append_to_file("logs/$year.log", $time . ", " . $address . ", " . $_POST['search_or_click'] . ", [" . $_POST['search_string'] . "]\n");
+		append_to_file("logs/$year.log", $time . ", " . $address . ", " . $_POST['search_or_click'] . ", [" . $_POST['search_string'] . "]");
 	}
 	elseif ($_POST['search_or_click'] == "E") {
-		append_to_file("logs/$year.log", $time . ", " . $address . ", " . $_POST['search_or_click'] . "\n");
+		append_to_file("logs/$year.log", $time . ", " . $address . ", " . $_POST['search_or_click']);
 	}
 }
 ?>
