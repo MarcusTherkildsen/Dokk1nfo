@@ -12,8 +12,7 @@ and then click on the one you want
 
 TODO:
 - Look into where stuff goes wrong with the new system. Use "turen går til" as a test case since that does not work anymore. 
-- See if we can use more direct calls to aakb.dk since we are now whitelisted. 
-- Move scraping to serverside.
 
 DONE:
+- Move scraping to serverside.
 - Get current dokk1nfo code on github.
