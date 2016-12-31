@@ -87,6 +87,8 @@
                     - Antal personer pt. på Dokk1 (og er det over/under det maks tilladte)<br>
                     - Køoplysninger<br>
                     - Parkeringsoplysninger<br>
+                    <br>
+                    Hele koden til <a href="http://dokk1nfo.dk/">dokk1nfo.dk</a> kan desuden ses <a href="https://github.com/MarcusTherkildsen/Dokk1nfo">her</a>.<br>
 
                     <br>
                     Sidst men ikke mindst: big credit til <a href="http://www.adammork.dk/">fotografen</a> bag <a href="http://i0.wp.com/aasarchitecture.com/wp-content/uploads/Dokk1-by-schmidt-hammer-lassen-architects-06.jpg">baggrundsbilledet</a>.
