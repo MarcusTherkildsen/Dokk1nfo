@@ -423,8 +423,8 @@ $('#plot_form').submit(function(ev) {
   // Check if search is empty or just whitespaces
   if ($('#shelf_id').val().replace(/ /g, '').length != 0){
 
-    // Parse the input field into a search form
-    search_query = $('#shelf_id').val().split(' ').join('%20');
+    // Encode the searh term in a well mannered way
+    search_query = encodeURI($('#shelf_id').val());
 
     // from http://gasparesganga.com/labs/jquery-loading-overlay/
     // Setup Loading overlay
@@ -467,9 +467,11 @@ $('#plot_form').submit(function(ev) {
             $placement
             $avail_num
             */
-            //console.log(json);
+            console.table(json);
 
             $.LoadingOverlay("hide");
+            
+
             overlay_text("Tjekker hylder");
             $.LoadingOverlay("show");
 
@@ -490,9 +492,12 @@ $('#plot_form').submit(function(ev) {
 
               });
 
+
+
             },  
             error: function (xhr, ajaxOptions, thrownError) {
-
+              $.LoadingOverlay("hide");
+              $("#navid ul").append("<div><h3>aakb.dk gider ikke lege lige nu, prøv igen senere</h3></div>");
             }
           });
 

@@ -43,6 +43,17 @@
   </nav>
 
   <div class="container">
+
+<!---->
+
+<!-- IMPLEMENT DIRECT LINK HANDLING -->
+
+<!---->
+
+
+
+
+
     <div id="list">
       <div class="top">
       <form id="plot_form">
