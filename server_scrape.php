@@ -17,15 +17,16 @@ function IsNullOrEmptyString($question){
 
 // Temporary "solution" until Dokk1 solves the real problem
 function searchStringForNumber($in_string){
+
+
+  //echo $in_string;
+  // Skip the first part of the string since it contain some unwanted information
+  //$in_string = substr($in_string, 
+
   // Find numbers in the string http://www.regexr.com/ http://www.phpliveregex.com/ in the form of " number"
   preg_match_all("/ (?:\d*\.)?\d+/", $in_string, $myArray);
 
   // Get last entry (the one with most occurences) and strip spaces
-  /*
-  print_r($myString);
-  echo '<br>';
-  print_r($myArray); 
-  */
   return str_replace(' ', '', end(end($myArray)));
 }
 
@@ -47,6 +48,9 @@ if (IsNullOrEmptyString($_POST['search_string'])){
   // Send to 404 page  
   header("Location: http://dokk1nfo.dk/404");
   die();
+
+  //$query = 'https://www.aakb.dk/search/ting/dr%C3%B8mmeprinsessen';
+  //$query = 'https://www.aakb.dk/search/ting/wehatisgoingonwfbdsa';
 }
 else
 {
@@ -163,11 +167,12 @@ foreach($arr_faust as $real_faust){
         in reality it is not available since it is reserved. Therefore we need to make
         a check for that.
         */
-        if ($obj[$key]['reservable'] == false){
+        
+        if ($obj[$real_faust]['reservable'] == false){
           $availability[$real_faust] = 0;
         }
         else{
-          $availability[$real_faust] = $obj[$key]['holdings'][i]['available_count'];
+          $availability[$real_faust] = $obj[$real_faust]['holdings'][$i]['available_count'];
         }
       }
     }
@@ -177,7 +182,7 @@ foreach($arr_faust as $real_faust){
 $no_go_list = ["Fjerndepot", "Skolebibliotek", "Bibliotekarbord"];
 
 // Prepare the final json  object to transfer to the client
-if (1==1){//defined($placement)){
+if (!is_null($placement)){
   foreach ($placement as $key => $value) {
     // Key are the faust numbers which we found at Hovedbiblioteket/Dokk1
     // We check if on the no-go list
