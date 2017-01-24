@@ -469,6 +469,10 @@ $('#plot_form').submit(function(ev) {
             */
             console.table(json);
 
+            for (var faust_i in json){
+              console.log(json[faust_i]['title']);
+              console.log(json[faust_i]['placement']);
+            }
             $.LoadingOverlay("hide");
             
 

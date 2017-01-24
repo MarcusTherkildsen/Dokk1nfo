@@ -10,6 +10,14 @@ var part_url = scrape_response[4];
 https://www.aakb.dk/ding_availability/holdings/29567239
 */
 
+// Pretty print array for debugging
+function print_arr($in_arr){
+  echo "<pre>";
+  print_r($in_arr);
+  echo "</pre>";
+  return None;
+}
+
 // Function for basic field validation (present and neither empty nor only white space
 function IsNullOrEmptyString($question){
     return (!isset($question) || trim($question)==='');
@@ -23,11 +31,13 @@ function searchStringForNumber($in_string){
   // Skip the first part of the string since it contain some unwanted information
   //$in_string = substr($in_string, 
 
-  // Find numbers in the string http://www.regexr.com/ http://www.phpliveregex.com/ in the form of " number"
-  preg_match_all("/ (?:\d*\.)?\d+/", $in_string, $myArray);
+  // Find numbers in the string http://www.regexr.com/ http://www.phpliveregex.com/ in the form of "> number"
+  preg_match_all("/> (?:\d*\.)?\d+/", $in_string, $myArray);
+  
+  // Get last entry (the one with most occurences) and remove "> "
+  $myString = str_replace('> ', '', end(end($myArray)));
 
-  // Get last entry (the one with most occurences) and strip spaces
-  return str_replace(' ', '', end(end($myArray)));
+  return $myString;
 }
 
 // http://stackoverflow.com/a/2087136/5241172
@@ -42,7 +52,94 @@ function DOMinnerHTML(DOMNode $element)
     }
 
     return $innerHTML; 
-} 
+}
+
+/*Retrieve the json elements in parallel since dokk1 has ****** the previous format up
+
+$arr_faust = ['51271661', '51810694'];
+$json = file_get_contents('https://www.aakb.dk/ding_availability/holdings/51271661,51810694');
+// Return as array http://stackoverflow.com/a/6815562/5241172
+$obj = json_decode($json, true);
+print_arr($obj);
+
+This should return 
+51271661 -> 64.14
+51810694 -> 99.4
+
+
+*/
+//////////////////////////////////
+// http://tech.vg.no/2013/07/23/php-perform-requests-in-parallel/
+function parallel_calls($urls){
+  $multi = curl_multi_init();
+  $channels = array();
+
+  $return_arr = array();
+   
+  // Loop through the URLs, create curl-handles
+  // and attach the handles to our multi-request
+  foreach ($urls as $url) {
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_HEADER, false);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+   
+      curl_multi_add_handle($multi, $ch);
+   
+      $channels[$url] = $ch;
+  }
+   
+  // While we're still active, execute curl
+  $active = null;
+  do {
+      $mrc = curl_multi_exec($multi, $active);
+  } while ($mrc == CURLM_CALL_MULTI_PERFORM);
+   
+  while ($active && $mrc == CURLM_OK) {
+      // Wait for activity on any curl-connection
+      if (curl_multi_select($multi) == -1) {
+          continue;
+      }
+   
+      // Continue to exec until curl is ready to
+      // give us more data
+      do {
+          $mrc = curl_multi_exec($multi, $active);
+      } while ($mrc == CURLM_CALL_MULTI_PERFORM);
+  }
+   
+  // Loop through the channels and retrieve the received
+  // content, then remove the handle from the multi-handle
+  foreach ($channels as $channel) {
+      //echo curl_multi_getcontent($channel);
+      
+      // Had to cast to array to get proper format
+      array_push($return_arr, (array) curl_multi_getcontent($channel));
+
+      curl_multi_remove_handle($multi, $channel);
+  }
+   
+  // Close the multi-handle and return our results
+  curl_multi_close($multi);
+
+  return $return_arr;
+}
+
+function combined($scrambled_arr){
+  $return_arr = array();
+
+  $scrambled_arr_count = count($scrambled_arr);
+  for($i=0;$i<$scrambled_arr_count;$i++){
+
+    $temp_arr = json_decode($scrambled_arr[$i][0], true);
+
+    $return_arr[key($temp_arr)] = $temp_arr[key($temp_arr)];
+  
+  }
+  return $return_arr;
+}
+
+/////////////////////////////////////////////////////////
 
 if (IsNullOrEmptyString($_POST['search_string'])){
   // Send to 404 page  
@@ -50,7 +147,10 @@ if (IsNullOrEmptyString($_POST['search_string'])){
   die();
 
   //$query = 'https://www.aakb.dk/search/ting/dr%C3%B8mmeprinsessen';
+  //$query = 'https://www.aakb.dk/search/ting/Helt%20igennem%20sund%20%26%20frisk';
   //$query = 'https://www.aakb.dk/search/ting/wehatisgoingonwfbdsa';
+  //$query = 'https://www.aakb.dk/search/ting/snack';
+  //$query = 'https://www.aakb.dk/search/ting/51443195';
 }
 else
 {
@@ -128,13 +228,28 @@ foreach ($nodes as $element)
 // Remove trailing comma http://stackoverflow.com/a/5593009/5241172
 $part_url = rtrim($part_url, ",");
 
-// Get the json object http://stackoverflow.com/a/15617547/5241172
-ini_set("allow_url_fopen", 1);
-$json = file_get_contents("https://www.aakb.dk{$part_url}");
+////////////////////////////////////////////////////////////////////
+// This should be the way but as explained below this does not work
+// Get the json object http://stackoverflow.com/a/15617547/5241172 
+//ini_set("allow_url_fopen", 1);
+//$json = file_get_contents("https://www.aakb.dk{$part_url}");
 
 // Return as array http://stackoverflow.com/a/6815562/5241172
-$obj = json_decode($json, true);
+//$obj = json_decode($json, true);
+////////////////////////////////////////////////////////////////////
 
+// The stupid parallel way since we cannot get the proper result when making direct calls 
+$arr_faust_urls = array();
+foreach($arr_faust as $spec_faust_url){
+  array_push($arr_faust_urls, 'https://www.aakb.dk/ding_availability/holdings/' . $spec_faust_url);
+}
+
+$obj_temp = parallel_calls($arr_faust_urls);
+$obj = combined($obj_temp);
+/*
+print_arr($obj_temp);
+print_arr($obj);
+*/
 foreach($arr_faust as $real_faust){
 
   // Check if holdings is null 
@@ -156,7 +271,16 @@ foreach($arr_faust as $real_faust){
 
           // Else it means that we could not find the full path to the item and we need to search the html string for a number
           // which we then append
-          array_push($placement[$real_faust], searchStringForNumber($obj[$real_faust]['html']));
+          $temp_numb = searchStringForNumber($obj[$real_faust]['html']);
+
+          if($temp_numb == ""){
+
+            // Weird stuff. Append a value that I know will be filtered away later on
+            array_push($placement[$real_faust], 'Fjerndepot'); 
+          }
+          else{
+            array_push($placement[$real_faust], $temp_numb);
+          }
         }
 
         /*
