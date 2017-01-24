@@ -66,6 +66,7 @@ This should return
 51271661 -> 64.14
 51810694 -> 99.4
 
+but it returns whatever comes first for every faust number (in this case 64.14). If I try switching the order of my request I get 99.4 for both. Broken as ****.
 
 */
 //////////////////////////////////
