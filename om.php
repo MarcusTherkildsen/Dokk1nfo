@@ -35,6 +35,8 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/">Søg</a></li>
+                    <li><a href="/toilet">Toilet</a></li>
+                    <li><a href="/print">Print</a></li>
                     <li class="active"><a href="/om">Om</a></li>
                 </ul>
             </div>

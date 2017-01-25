@@ -5,6 +5,8 @@ RewriteBase /
 RewriteCond %{HTTP_HOST} ^www\.dokk1nfo\.dk
 RewriteRule (.*) http://dokk1nfo.dk/$1 [R=301,L]
 
+RewriteRule ^(toilet)$ toilet.php [NC,L]
+RewriteRule ^(print)$ print.php [NC,L]
 RewriteRule ^(om)$ om.php [NC,L]
 RewriteRule ^(kø)$ koe.php [NC,L]
 RewriteRule ^(besøg)$ besoeg.php [NC,L]
