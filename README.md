@@ -11,8 +11,14 @@ and then click on the one you want
 ![alt tag](https://www.mtherkildsen.dk/bl-content/uploads/figures/bib_related/map.png)
 
 TODO:
-- Look into where stuff goes wrong with the new system. Use "turen går til" as a test case since that does not work anymore. 
+- Generate proper toilet and printer maps
+- Add pages
+  - Parking
+  - Solar power
+  - Number of people in line
+  - Number of people currently inside Dokk1
 
 DONE:
+- Look into where stuff goes wrong with the new system. Use "turen går til" as a test case since that does not work anymore. Workaround added.
 - Move scraping to serverside.
 - Get current dokk1nfo code on github.
