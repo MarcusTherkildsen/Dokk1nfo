@@ -37,6 +37,7 @@
                     <li><a href="/">Søg</a></li>
                     <li><a href="/toilet">Toilet</a></li>
                     <li><a href="/print">Print</a></li>
+                    <!--<li><a href="/kø">Kø</a></li>-->
                     <li class="active"><a href="/om">Om</a></li>
                 </ul>
             </div>

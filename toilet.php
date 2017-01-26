@@ -37,6 +37,7 @@
                     <li><a href="/">Søg</a></li>
                     <li class="active"><a href="/toilet">Toilet</a></li>
                     <li><a href="/print">Print</a></li>
+                    <!--<li><a href="/kø">Kø</a></li>-->
                     <li><a href="/om">Om</a></li>
                 </ul>
             </div>
@@ -110,8 +111,9 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type='text/javascript' src='/js/jquery.min.js'></script>
+    <script type='text/javascript' src="/js/bootstrap.min.js"></script>
+    
 </body>
 </html>
 0

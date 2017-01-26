@@ -37,6 +37,7 @@
                     <li><a href="/">Søg</a></li>
                     <li><a href="/toilet">Toilet</a></li>
                     <li class="active"><a href="/print">Print</a></li>
+                    <!--<li><a href="/kø">Kø</a></li>-->
                     <li><a href="/om">Om</a></li>
                 </ul>
             </div>
@@ -69,11 +70,13 @@
 
         //$floor = 1;
         $tip = '<p class="tip">Tip: Tryk på billedet for at forstørre det.</p>';
-        $filename = "./img/toilet/" . "$floor" . ".jpg";
+        $filename = "./img/print/" . "$floor" . ".jpg";
         if (file_exists($filename)) {
-            $picture = "<a href='/img/toilet/" . "$floor" . ".jpg'><img src='/img/toilet/" . "$floor" . ".jpg' style='width:100%' title='Tryk for fuld skærm'></a>";
+            $picture = "<a href='/img/print/" . "$floor" . ".jpg'><img src='/img/print/" . "$floor" . ".jpg' style='width:100%' title='Tryk for fuld skærm'></a>";
             append_to_file("logs/$year.log", $time . ", " . $address . ", P, " . $floor);
         }
+
+
     }
     ?>
     
@@ -87,7 +90,7 @@
                     <div class="form-group">
                         <div class="btn-group btn-group-lg center" role="group" aria-label="...">
                             <button type="submit" name="setFloor" value="2" class="btn btn-default">1</button>
-                            <button type="submit" name="setFloor" value="3" class="btn btn-default">2</button>
+                            <button type="submit" name="setFloor" value="3" class="btn btn-default" disabled>2</button>
                         </div>
                     </div>
                     <div class="form-group">
@@ -109,8 +112,9 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type='text/javascript' src='/js/jquery.min.js'></script>
+    <script type='text/javascript' src="/js/bootstrap.min.js"></script>
+
 </body>
 </html>
 0
