@@ -1,5 +1,5 @@
 # Dokk1nfo
-Source code for the [dokk1nfo.dk](www.dokk1nfo.dk) website
+Source code for the [dokk1nfo.dk](http://www.dokk1nfo.dk) website
 
 This website was created out of my own frustation of not being able to find items at the largest public library in Scandinavia, [dokk1](https://en.wikipedia.org/wiki/Dokk1#Library_and_culture_center).
 
