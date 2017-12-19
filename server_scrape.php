@@ -144,13 +144,15 @@ function combined($scrambled_arr){
 
 if (IsNullOrEmptyString($_POST['search_string'])){
   // Send to 404 page  
-  header("Location: http://dokk1nfo.dk/404");
-  die();
+  //header("Location: http://dokk1nfo.dk/404");
+  //die();
 
   //$query = 'https://www.aakb.dk/search/ting/dr%C3%B8mmeprinsessen';
   //$query = 'https://www.aakb.dk/search/ting/Helt%20igennem%20sund%20%26%20frisk';
   //$query = 'https://www.aakb.dk/search/ting/wehatisgoingonwfbdsa';
+  //$query = 'https://www.aakb.dk/search/ting/turen%20til';
   //$query = 'https://www.aakb.dk/search/ting/snack';
+  $query = 'https://www.aakb.dk/search/ting/golf';
   //$query = 'https://www.aakb.dk/search/ting/51443195';
 }
 else
@@ -159,11 +161,18 @@ else
   $query = 'https://www.aakb.dk/search/ting/' . $_POST['search_string'] . '?size=40';
 }
 
-$dom = new DOMDocument('1.0');
-$classname = "search-result--heading-type";
-@$dom->loadHTMLFile($query); // Returns true for success and false otherwise. Should make a check.
+$dom = new DOMDocument();
+$dom->validateOnParse = true; // <-- This is just for testing if we get more images loaded.. 
+$classname = "ting-object view-mode-search-result imagestyle-ding-list-medium list-item-style clearfix";
+//$classname = "availability search-result--availability";
+@$dom->loadHTMLFile($query, LIBXML_COMPACT); // Returns true for success and false otherwise. Should make a check.
+
+
+// discard white space
+//$dom->preserveWhiteSpace = false;
+
 $nodes = array();
-$nodes = $dom->getElementsByTagName("span");
+$nodes = $dom->getElementsByTagName("div");
 $arr_faust = array();
 
 $part_url = "/ding_availability/holdings/";
@@ -172,42 +181,38 @@ foreach ($nodes as $element)
 {
 
    $classy = $element->getAttribute("class");
+
+   // If the current class equal to the "parent" we expect
    if ($classy == $classname)
    {
 
-    // Our starting point for scraping
-    $parent_element = $element->parentNode->parentNode->parentNode;
-    $first_children = $parent_element->childNodes->item(2)->childNodes;
+    /*
+    - faust
+    - title
+    - author
+    - thumb
+    */
+
+    $parent = $element->childNodes->item(1);
+
+    // FAUST
+    $faust_str = $parent->childNodes->item(1)->getAttribute('href');
+    // Returns something like /ting/collection/870970-basis%3A53119867
+
+// http://php.net/manual/en/language.operators.string.php
 
     // Here we should make a check for "870970-basis" (12chars) og "775100-katalog" (14chars) which are the only two cases where the item "might" be available at the library.
     // As a start, I will simply check for 870970 and 775100
-    $in_faust = substr($first_children->item(1)->childNodes->item(1)->childNodes->item(0)->getAttribute('href'), 17, 6);
+    $in_faust = substr($faust_str, 17, 6);
+
     if ($in_faust == 870970 || $in_faust == 775100)
     {
+    
+      // The last 8 chars is the faust number
+      $faust = substr($faust_str, -8);
 
-      // Faust
-      $faust = substr($first_children->item(1)->childNodes->item(1)->childNodes->item(0)->getAttribute('href'), -8);
-
-      // Note: use DOMinnerHTML($element) if you want hyperlink
-      // use ->textContent if you simply want the text.
-
-      // Title
-      $temp_title = $first_children->item(1)->childNodes->item(1)->childNodes->item(0);
-      if (!is_null($temp_title))
-      {
-        $title[$faust] = $temp_title->textContent;
-      }
-      else
-      {
-        $title[$faust] = 'Ukendt';
-        //$title[$faust] = null; // Insert 'Ukendt' in JS
-      }
-
-      // Author (will show only release year if no author available) but that might very well change when/if they ever finish the new system. 
-      $author[$faust] = $first_children->item(2)->nextSibling->textContent;
-
-      // Thumb
-      $temp_thumb = $parent_element->childNodes->item(1)->getElementsByTagName('img')->item(0);
+      // Thumb (1->1->1)
+      $temp_thumb = $parent->childNodes->item(1)->childNodes->item(1)->childNodes->item(1)->getElementsByTagName("img")->item(0);
       if (!is_null($temp_thumb))
       {
         $thumb[$faust] = $temp_thumb->getAttribute('src');
@@ -218,10 +223,35 @@ foreach ($nodes as $element)
         //$thumb[$faust] = null; // Insert http://www.dokk1nfo.dk/img/no_image.jpg' in JS
       }
 
-      // http://php.net/manual/en/language.operators.string.php
-      $part_url.="{$faust},";
+      // This is not the most robust or effective way but it works for now.. 
+      $tempolol = $parent->getElementsByTagName('a');
 
-      array_push($arr_faust, $faust);
+      // Title
+      $temp_title = $tempolol->item(1);
+      if (!is_null($temp_title))
+      {
+        $title[$faust] = $temp_title->textContent;
+      }
+      else
+      {
+        $title[$faust] = 'Ukendt';
+        //$title[$faust] = null; // Insert 'Ukendt' in JS
+      }
+
+      $temp_title = $tempolol->item(2);
+      if (!is_null($temp_title))
+      {
+        $author[$faust] = $temp_title->textContent;
+      }
+      else
+      {
+        $author[$faust] = 'Ukendt';
+        //$author[$faust] = null; // Insert 'Ukendt' in JS
+      }
+
+      $part_url.="{$faust},";
+      
+      array_push($arr_faust, $faust);      
     }
   }
 }
@@ -229,15 +259,25 @@ foreach ($nodes as $element)
 // Remove trailing comma http://stackoverflow.com/a/5593009/5241172
 $part_url = rtrim($part_url, ",");
 
+/*
+echo $part_url;
+
+print_arr($arr_faust);
+print_arr($thumb);
+*/
+
 ////////////////////////////////////////////////////////////////////
 // This should be the way but as explained below this does not work
 // Get the json object http://stackoverflow.com/a/15617547/5241172 
-//ini_set("allow_url_fopen", 1);
-//$json = file_get_contents("https://www.aakb.dk{$part_url}");
+/*
+ini_set("allow_url_fopen", 1);
+$json = file_get_contents("https://www.aakb.dk{$part_url}");
 
 // Return as array http://stackoverflow.com/a/6815562/5241172
-//$obj = json_decode($json, true);
+$obj = json_decode($json, true);
+*/
 ////////////////////////////////////////////////////////////////////
+
 
 // The stupid parallel way since we cannot get the proper result when making direct calls 
 $arr_faust_urls = array();
@@ -247,10 +287,11 @@ foreach($arr_faust as $spec_faust_url){
 
 $obj_temp = parallel_calls($arr_faust_urls);
 $obj = combined($obj_temp);
-/*
-print_arr($obj_temp);
-print_arr($obj);
-*/
+
+//print_arr($obj_temp);
+
+//print_arr($obj);
+
 foreach($arr_faust as $real_faust){
 
   // Check if holdings is null 
@@ -272,6 +313,7 @@ foreach($arr_faust as $real_faust){
 
           // Else it means that we could not find the full path to the item and we need to search the html string for a number
           // which we then append
+          
           $temp_numb = searchStringForNumber($obj[$real_faust]['html']);
 
           if($temp_numb == ""){
@@ -282,6 +324,7 @@ foreach($arr_faust as $real_faust){
           else{
             array_push($placement[$real_faust], $temp_numb);
           }
+          
         }
 
         /*
@@ -333,6 +376,8 @@ if (!is_null($placement)){
 
 // Encode to json and return 
 echo json_encode($final_json);
+
+//print_arr($final_json);
 
 // https://www.aakb.dk/ding_availability/holdings/51989252,45753476,51979591,51671414,51980204,51980239,51980190,51671457,51975952
 
