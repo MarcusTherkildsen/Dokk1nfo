@@ -39,7 +39,9 @@
                   <li class="active"><a href="/">Søg</a></li>
                   <li><a href="/toilet">Toilet</a></li>
                   <li><a href="/print">Print</a></li>
-                  <!--<li><a href="/kø">Kø</a></li>-->
+                  <li><a href="/parkering">Parkering</a></li>
+                  <li><a href="/kø">Kø</a></li>
+                  <li><a href="/besøg">Besøg</a></li>
                   <li><a href="/om">Om</a></li>
               </ul>
           </div>
@@ -61,11 +63,21 @@
     <div id="list">
       <div class="top">
       <form id="plot_form">
+        <!--
+        <input class="search" id="shelf_id" placeholder="fx Turen går til" disabled="disabled" required="required" autofocus>
+      -->
         <input class="search" id="shelf_id" placeholder="fx Turen går til" required="required" autofocus>
         <button class="sort">Søg</button>
       </form>
         <div style="padding-bottom: 10px;">
+          
+          <!--
+          <p class="helptext">aakb.dk har <b>igen</b> ændret system så dokk1nfo skal tilpasses og virker derfor ikke i øjeblikket, beklager.</p>
+          -->
+
+          
           <p class="helptext">Her kan du søge efter <b>alle emner</b> på Dokk1. Klik på resultat for kort.<br>Grøn: kan udlånes. Rød: kan ikke udlånes.</p>
+          
         </div>
       </div>
     </div>
@@ -103,8 +115,6 @@
 
   </div>
 
-  <!--<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>-->
-  <!--<script type='text/javascript' src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
   <script type='text/javascript' src='/js/jquery.min.js'></script>
   <script type='text/javascript' src='/js/plot_dot.js'></script><!--Needs to be after jQuery import-->
   <script type='text/javascript' src='/js/loadingoverlay.min.js'></script>

@@ -152,14 +152,32 @@ if (IsNullOrEmptyString($_POST['search_string'])){
   //$query = 'https://www.aakb.dk/search/ting/wehatisgoingonwfbdsa';
   //$query = 'https://www.aakb.dk/search/ting/turen%20til';
   //$query = 'https://www.aakb.dk/search/ting/snack';
-  $query = 'https://www.aakb.dk/search/ting/golf';
+  $query = 'https://www.aakb.dk/search/ting/golf?size=100';
   //$query = 'https://www.aakb.dk/search/ting/51443195';
 }
 else
 {
   // The query string containing the properly formatted (from JS) search_string
-  $query = 'https://www.aakb.dk/search/ting/' . $_POST['search_string'] . '?size=40';
+  $query = 'https://www.aakb.dk/search/ting/' . $_POST['search_string'] . '?size=100';//40';
 }
+
+// https://davidwalsh.name/curl-download
+/* gets the data from a URL */
+function get_data($url) {
+  $ch = curl_init();
+  $timeout = 5;
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+  $data = curl_exec($ch);
+  curl_close($ch);
+  return $data;
+}
+
+/*
+$returned_content = file_get_contents('https://www.aakb.dk/search/ting/snack');
+print_arr($returned_content);
+*/
 
 $dom = new DOMDocument();
 $dom->validateOnParse = true; // <-- This is just for testing if we get more images loaded.. 
@@ -167,6 +185,17 @@ $classname = "ting-object view-mode-search-result imagestyle-ding-list-medium li
 //$classname = "availability search-result--availability";
 @$dom->loadHTMLFile($query, LIBXML_COMPACT); // Returns true for success and false otherwise. Should make a check.
 
+/*
+$html = file_get_contents($query);
+//Parse it. Here we use loadHTML as a static method
+//to parse the HTML and create the DOM object in one go.
+@$dom = DOMDocument::loadHTML($html);
+ 
+//Init the XPath object
+$xpath = new DOMXpath($dom);
+
+print_arr($dom);
+*/
 
 // discard white space
 //$dom->preserveWhiteSpace = false;

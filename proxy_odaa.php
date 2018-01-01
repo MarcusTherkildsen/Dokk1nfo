@@ -12,7 +12,7 @@ if (IsNullOrEmptyString($_POST['resource_id'])){
 }
 else
 {
-	$url = 'http://www.odaa.dk/api/3/action/datastore_search?resource_id=' . $_POST['resource_id'];
+	$url = 'http://portal.opendata.dk/api/3/action/datastore_search?resource_id=' . $_POST['resource_id'];
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -20,4 +20,5 @@ else
 	curl_close ($ch);
 	echo $result;
 }
+
 ?>

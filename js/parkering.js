@@ -6,13 +6,12 @@ $(document).ready(function(){
   For at få data for Dokk1 skal man tage summen af tæller 12+13 og IKKE den der hedder Dokk1
   */
   var resource_id = '2a82a145-0195-4081-a13c-b0e587e9b89c&q=urban+level';
-
   $.ajax({
     url: '/proxy_odaa.php',
     async:true,
     type: "POST",
     dataType: "json",
-    data: {
+    data: { 
       resource_id: resource_id
     },
     cache:false,

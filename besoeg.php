@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-    <meta charset="utf-8">
+  <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Problemer med at finde rundt på Dokk1? Ikke længere!">
     <meta name="keywords" content="Alt om Dokk1nfo">
     <meta name="author" content="Dokk1nfo">
     <title>Besøg - Dokk1nfo</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/navnav.css">
-    
+    <!--Website thumbnail-->
+    <meta property="og:image" content="http://www.dokk1nfo.dk/img/thumb.jpeg"/>
+    <link rel="image_src" href="http://www.dokk1nfo.dk/img/thumb.jpeg"/>
 </head>
 
 <body>
@@ -32,6 +35,12 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Søg</a></li>
+                    <li><a href="/toilet">Toilet</a></li>
+                    <li><a href="/print">Print</a></li>
+                    <li><a href="/parkering">Parkering</a></li>
+                    <li><a href="/kø">Kø</a></li>
+                    <li class="active"><a href="/besøg">Besøg</a></li>
                     <li><a href="/om">Om</a></li>
                 </ul>
             </div>
